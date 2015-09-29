@@ -1,0 +1,13 @@
+# Mac OSX
+.DS_Store
+
+# Gradle
+.gradle
+build/
+
+# Intellij IDEA
+.idea/
+*.iml
+
+# Local configuration
+local.properties

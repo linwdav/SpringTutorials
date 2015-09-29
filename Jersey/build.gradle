@@ -1,0 +1,40 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+mainClassName = 'hello.Application'
+
+jar {
+	baseName = 'gs-jersey-and-jpa'
+	version = '0.1.0'
+}
+
+repositories {
+	mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-jersey")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.hsqldb:hsqldb")
+	compile("com.google.guava:guava:18.0")
+	testCompile("org.assertj:assertj-core:1.7.0")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.3'
+}
