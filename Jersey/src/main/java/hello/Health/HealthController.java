@@ -1,4 +1,4 @@
-package hello;
+package hello.Health;
 
 import org.springframework.stereotype.Component;
 

@@ -1,5 +1,6 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.Application;
-import hello.HealthMessage;
+import hello.Health.HealthMessage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,19 +12,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest("server.port=9000")
 public class HealthControllerIntegrationTest {
 
-	private RestTemplate restTemplate = new TestRestTemplate();
+	private RestTemplate restTemplate = new TestRestTemplate("david", "123");
 
 	@Test
 	public void health() {
-		ResponseEntity<HealthMessage> entity = restTemplate.getForEntity("http://localhost:9000/health", HealthMessage.class);
+		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:9000/health", String.class);
 		Assert.assertTrue(entity.getStatusCode().is2xxSuccessful());
-		Assert.assertEquals(entity.getBody().getMsg(), "Jersey: Up and Running!");
+
+		HealthMessage msg = null;
+		try {
+			msg = new ObjectMapper().readValue(entity.getBody(), HealthMessage.class);
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Assert.assertNotNull(msg);
+		Assert.assertEquals(msg.getMsg(), "Jersey: Up and Running!");
 	}
 
 }

@@ -1,8 +1,12 @@
-package hello;
+package hello.Health;
 
 public class HealthMessage {
 
 	private String msg;
+
+	public HealthMessage() {
+		msg = "";
+	}
 
 	public HealthMessage(String msg) {
 		this.msg = msg;
