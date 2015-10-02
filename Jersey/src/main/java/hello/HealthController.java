@@ -12,8 +12,8 @@ public class HealthController {
 
 	@GET
 	@Produces("application/json")
-	public String health() {
-		return "Jersey: Up and Running!";
+	public HealthMessage health() {
+		return new HealthMessage("Jersey: Up and Running!");
 	}
 
 }

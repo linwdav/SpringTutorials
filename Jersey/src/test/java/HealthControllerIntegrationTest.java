@@ -1,4 +1,5 @@
 import hello.Application;
+import hello.HealthMessage;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +21,9 @@ public class HealthControllerIntegrationTest {
 
 	@Test
 	public void health() {
-		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:9000/health", String.class);
+		ResponseEntity<HealthMessage> entity = restTemplate.getForEntity("http://localhost:9000/health", HealthMessage.class);
 		Assert.assertTrue(entity.getStatusCode().is2xxSuccessful());
-		Assert.assertEquals(entity.getBody(), "Jersey: Up and Running!");
+		Assert.assertEquals(entity.getBody().getMsg(), "Jersey: Up and Running!");
 	}
 
 }
